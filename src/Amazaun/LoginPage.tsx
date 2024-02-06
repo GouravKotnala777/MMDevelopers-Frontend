@@ -1,12 +1,12 @@
 import { useToast } from "@chakra-ui/react";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+// import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { FC, useState } from "react";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import styled from "styled-components";
-import { auth } from "../firebase";
+// import { auth } from "../firebase";
 import { useLoginMutation } from "./redux/api/userAPI";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
-import { MessageResponse } from "./types/api-types";
+// import { FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
+// import { MessageResponse } from "./types/api-types";
 
 const LoginPage:FC = () => {
     const [gender, setGender] = useState("");
@@ -16,54 +16,54 @@ const LoginPage:FC = () => {
     const [login] = useLoginMutation();
 
     const loginHandler = async() => {
-        try {
-            const provider = new GoogleAuthProvider();
-            const {user} = await signInWithPopup(auth, provider);
-            const res = await login({
-                name:user.displayName!,
-                email:user.email!,
-                pic:user.photoURL!,    //01:13:00
-                gender,
-                role:"user",
-                dob:date,
-                _id:user.uid
-            });
+        // try {
+        //     const provider = new GoogleAuthProvider();
+        //     const {user} = await signInWithPopup(auth, provider);
+        //     const res = await login({
+        //         name:user.displayName!,
+        //         email:user.email!,
+        //         pic:user.photoURL!,    //01:13:00
+        //         gender,
+        //         role:"user",
+        //         dob:date,
+        //         _id:user.uid
+        //     });
 
-            if ("data" in res) {
-                toast({
-                    title:"Login Successful",
-                    duration:3000,
-                    status:"success",
-                    position:"bottom"
-                });
-                console.log("------ Login");
-                console.log(res);
-                console.log("------ Login");
-            }
-            else{
-                const error = res.error as FetchBaseQueryError;
-                const message = error.data as MessageResponse;
-                toast({
-                    title:message.message,
-                    duration:3000,
-                    status:"error",
-                    position:"bottom"
-                });
-                console.log("------ Login");
-                console.log(message);
-                console.log("------ Login");
-            }
-            console.log(user);
+        //     if ("data" in res) {
+        //         toast({
+        //             title:"Login Successful",
+        //             duration:3000,
+        //             status:"success",
+        //             position:"bottom"
+        //         });
+        //         console.log("------ Login");
+        //         console.log(res);
+        //         console.log("------ Login");
+        //     }
+        //     else{
+        //         const error = res.error as FetchBaseQueryError;
+        //         const message = error.data as MessageResponse;
+        //         toast({
+        //             title:message.message,
+        //             duration:3000,
+        //             status:"error",
+        //             position:"bottom"
+        //         });
+        //         console.log("------ Login");
+        //         console.log(message);
+        //         console.log("------ Login");
+        //     }
+        //     console.log(user);
             
-        } catch (error) {
-            // console.log(error);
-            toast({
-                title:"Sing In Failed",
-                duration:3000,
-                status:"error",
-                position:"bottom"
-            });
-        }
+        // } catch (error) {
+        //     // console.log(error);
+        //     toast({
+        //         title:"Sing In Failed",
+        //         duration:3000,
+        //         status:"error",
+        //         position:"bottom"
+        //     });
+        // }
 
     };
 

@@ -1,7 +1,7 @@
 import { ComponentType, FC, Suspense, lazy, useEffect } from "react";
 import { BrowserRouter, Route, Routes} from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase";
+// import { onAuthStateChanged } from "firebase/auth";
+// import { auth } from "../firebase";
 import { useDispatch } from "react-redux";
 // import { userExist, userNotExist } from "./redux/reducer/userReducer";
 
