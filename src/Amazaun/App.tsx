@@ -67,7 +67,7 @@ const App:FC = () => {
         {/* <Header /> */}
         <Suspense fallback={<Loader />}>
             <Routes>
-                <Route path="/" element={<HomePage />} />
+                <Route path="/" element={<Dashboard />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/admin/product" element={<ProductPage />} />
                 <Route path="/admin/customer" element={<Customers />} />
