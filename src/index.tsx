@@ -1,15 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+// import { ChakraProvider } from '@chakra-ui/react';
 // import reportWebVitals from './reportWebVitals';
+
+
+//     Todo App
+// import App from './Todo_App/App';
+//----------------------------------------------
+
+
+
+
+//     Amazaun
+import App from './Amazaun/App';
+import { Provider } from 'react-redux';
+import { store } from './Amazaun/redux/store';
+// import { store } from './Amazaun/redux/store';
+//----------------------------------------------
+
+
+// dotenv.config();
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
   </React.StrictMode>
 );
 
