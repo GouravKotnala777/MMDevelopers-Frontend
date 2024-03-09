@@ -13,10 +13,18 @@ import './index.css';
 
 
 //     Amazaun
-import App from './Amazaun/App';
-import { Provider } from 'react-redux';
-import { store } from './Amazaun/redux/store';
+// import App from './Amazaun/App';
+// import { Provider } from 'react-redux';
 // import { store } from './Amazaun/redux/store';
+// import { store } from './Amazaun/redux/store';
+//----------------------------------------------
+
+
+
+//     MMDevelopers
+import App from './MMDevelopers/App';
+import { Provider } from 'react-redux';
+import { store } from './MMDevelopers/redux/store';
 //----------------------------------------------
 
 
@@ -28,9 +36,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 

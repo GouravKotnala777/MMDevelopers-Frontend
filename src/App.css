@@ -21,18 +21,16 @@
   align-items: center;
   justify-content: center;
   /* font-size: calc(10px + 2vmin); */
-  color: white;
-  /* color: rgb(203, 213, 224);
+  /* color: white;
+  color: rgb(203, 213, 224);
   color: rgb(244, 244, 244);
-  color: rgb(49, 130, 206); */
-  /* flex-wrap: wrap; */
-  /* color: rgb(255, 118, 59); */
-  /* overflow: hidden; */
-  /* color: hsl(96, 100%, 50%); */
-  /* color: rgb(164, 229, 255);
+  color: #3182ce;
+  color: rgb(255, 118, 59);
+  color: hsl(96, 100%, 50%);
+  color: rgb(164, 229, 255);
   color: rgb(72, 203, 255);
-  color: rgb(255, 223, 164); */
-  /* color: rgb(255, 164, 255);
+  color: rgb(255, 223, 164);
+  color: rgb(255, 164, 255);
   color: rgb(201, 126, 255);
   color: rgb(152, 152, 255);
   color: rgb(156, 234, 255);
@@ -40,7 +38,15 @@
   color: rgb(158, 255, 158);
   color: rgb(255, 255, 159);
   color: rgb(255, 215, 141);
-  color: rgb(255, 157, 157); */
+  color: rgb(255, 157, 157);
+  color: #b6b260;
+  color: #fff8d7;
+  color: #ff9c9c;
+  color: #99ff99;
+  color:#ff9090;
+  color:#ccffcc;
+  color: #ffffc2; */
+  
 }
 
 .App-link {
