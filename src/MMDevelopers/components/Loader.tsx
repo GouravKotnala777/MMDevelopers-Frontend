@@ -4,18 +4,16 @@ import styled from "styled-components";
 const Loader = ({width, color, borderWidth, hasHeading}:{width?:number; color?:string; borderWidth?:number; hasHeading?:boolean;}) => {
 
     return(
+                
         <LoaderBackground>
-            <div className="upper_circle" style={{width:`${width || 120}px`, height:`${width || 120}px`, borderLeft:borderWidth ? `${borderWidth}px solid ${color}` : `8px solid gray`, borderRight:borderWidth ? `${borderWidth}px solid ${color}` : `8px solid gray`}}>
+            <div className="container">
+                <div className="loader-container">
+                <div className="loader">
+                    <div className="spinner"></div>
+                    <h2>Loading...</h2>
+                </div>
+                </div>
             </div>
-            {
-                hasHeading ?
-                    <div className="loader_heading">
-                    </div>
-                    :
-                    <div className="loader_heading">
-                        Loading...
-                    </div>
-            }
         </LoaderBackground>
     )
 };
@@ -23,37 +21,61 @@ const Loader = ({width, color, borderWidth, hasHeading}:{width?:number; color?:s
 export default Loader;
 
 const LoaderBackground = styled.section`
-// border:2px solid red;
-// position:relative;
+border:2px solid red;
 
-    .upper_circle{
-        border-top:8px solid white;
-        border-bottom:8px solid white;
-        margin:100px auto;
-        border-radius:50%;
-        animation:loadingAmination 1s linear infinite;
-        position:relative;
-    }
-    .loader_heading{
-        // border:2px solid green;
-        position:absolute;
-        top:38%;
-        left:auto;
-        margin:0 auto;
-        font-weight:bold;
-        width:100%;
-        text-align:center;
-        animation:loadingHeading 1s ease-in-out infinite;
-    }
 
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .loader-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+  }
+  
+  .loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: loadingAmination 1s linear infinite;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    margin: 0;
+    animation: loadingHeading 1s ease-in-out infinite;
+  }
     
     @keyframes loadingAmination {
         0%{transform:rotate(0deg);}
         100%{transform:rotate(360deg);}
     }
     @keyframes loadingHeading {
-        0%{opacity:0.2}
+        0%{opacity:0.1}
         50%{opacity:1}
-        100%{opacity:0.2}
+        100%{opacity:0.1}
     }
 `;

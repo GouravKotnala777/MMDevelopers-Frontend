@@ -96,31 +96,6 @@ const App:FC = () => {
                 {/* <pre>{JSON.stringify(allPlots, null, `\t`)}</pre> */}
             {
                 loading ?
-                    // <InitialAppBackground>
-                    //     <div className="site_cont">
-                    //         <div className="site_cont_nav">
-                    //         <span className="main_heading"><Skeleton height={20} width={100} animation="loading 1s infinite ease-in-out" /></span>
-                                    
-                    //             <div className="readings_cont">
-
-                    //                 <span className="headings">Total Area</span><span className="values"><Skeleton height={10} width={100} animation="loading 1s infinite ease-in-out" /></span>
-                    //                 <span className="headings">Sold Area</span><span className="values"><Skeleton height={10} width={100} animation="loading 1s infinite ease-in-out" /></span>
-                    //                 <span className="headings">Total Balance</span><span className="values"><Skeleton height={10} width={100} animation="loading 1s infinite ease-in-out" /></span>
-                    //                 <span className="headings">Total Pendings</span><span className="values"><Skeleton height={10} width={100} animation="loading 1s infinite ease-in-out" /></span>
-                                    
-                    //                 <div className="agents_cont">
-                    //                     <span className="headings">Agent Name</span>
-                    //                     <span className="values"><Skeleton height={20} width={100} animation="loading 1s infinite ease-in-out" /></span>
-                    //                 </div>
-                    //             </div>
-
-                    //         </div>
-                    //         <div className="remove_and_edit_btn">
-                    //         </div>
-                    //     </div>
-                    // </InitialAppBackground>
-
-
                     <Loader />
                     :
                     <Routes>

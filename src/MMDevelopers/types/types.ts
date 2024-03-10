@@ -131,42 +131,42 @@ export interface AddSiteState {
 };
 
 interface ClientDashboard {
-    _id:number;
-    code:number;
-    name:string;
-    careTaker:string;
-    role:"agent"|"client";
-    mobile:number;
-    address:string;
+    _id?:number;
+    code?:number;
+    name?:string;
+    careTaker?:string;
+    role?:"agent"|"client";
+    mobile?:number;
+    address?:string;
 };
 interface PaymentDashboard {
-    _id:string;
-    slipNo:string;
-    amount:number;
-    modeOfPayment:string;
-    transactionID:number;
-    chequeNumber:number;
-    receiverAccount:number;
+    _id?:string;
+    slipNo?:string;
+    amount?:number;
+    modeOfPayment?:string;
+    transactionID?:number;
+    chequeNumber?:number;
+    receiverAccount?:number;
     // paymentStatus?:string;
     paymentStatus?:"token"|"emi"|"cancelled"|"bounced"|"wasted";
-    createdAt:string;
-    updateAt:string;
+    createdAt?:string;
+    updateAt?:string;
 };
 
 export interface PlotDashboard {
-    _id:number;
-    site_name:string;
-    plot_no:number;
-    size:number;
-    rate:number;
+    _id?:number;
+    site_name?:string;
+    plot_no?:number;
+    size?:number;
+    rate?:number;
     client?:ClientDashboard;
     payments?:PaymentDashboard[];
-    hasSold:boolean;
-    duration:number;
-    totalPaid:number;
+    hasSold?:boolean;
+    duration?:number;
+    totalPaid?:number;
     downPayment?:number;
-    timeCovered:number;
-    agent:string;
+    timeCovered?:number;
+    agent?:string;
 };
 
 export interface AllClientsState {

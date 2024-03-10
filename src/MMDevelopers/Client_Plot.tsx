@@ -10,47 +10,77 @@ import { BiAddToQueue, BiLeftArrow, BiLeftArrowAlt } from "react-icons/bi";
 import { AiOutlineLeftSquare } from "react-icons/ai";
 import { PlotDashboard } from "./types/types";
 import TopButtons from "./components/TopButtons";
+import Loader from "./components/Loader";
+import MiniLoader from "./components/MiniLoader";
+import Skeleton from "./components/Skeleton";
 
+interface AAA {
+    a1?:string;
+    b1?:string;
+    c1?:{
+        ca1?:string;
+        cb1?:string;
+        cc1?:{
+            cca1?:string;
+        }
+    }
+};
 
 const ClientPlot = () => {    
     const {name, plot_no} = useParams();
-    const [plotData, setPlotData] = useState<PlotDashboard>({
-        _id:0,
-        site_name:"no site_name",
-        plot_no:0,
-        size:0,
-        rate:0,
-        client:{
-            _id:0,
-            code:0,
-            name:"no data",
-            careTaker:"no data",
-            role:"client",
-            mobile:0,
-            address:""
-        },
-        payments:[{
-            _id:"no data",
-            slipNo:"no data",
-            amount:0,
-            modeOfPayment:"no data",
-            transactionID:0,
-            chequeNumber:0,
-            receiverAccount:0,
-            createdAt:"0",
-            updateAt:"0"
-        }],
-        duration:0,
-        totalPaid:0,
-        timeCovered:0,
-        agent:"",
-        hasSold:false
-    });
+    const [plotData, setPlotData] = useState<PlotDashboard>();
+    
+
+    // const [plotData, setPlotData] = useState<PlotDashboard>({
+    //     _id:0,
+    //     site_name:"no site_name",
+    //     plot_no:0,
+    //     size:0,
+    //     rate:0,
+    //     client:{
+    //         _id:0,
+    //         code:0,
+    //         name:"no data",
+    //         careTaker:"no data",
+    //         role:"client",
+    //         mobile:0,
+    //         address:""
+    //     },
+    //     payments:[{
+    //         _id:"no data",
+    //         slipNo:"no data",
+    //         amount:0,
+    //         modeOfPayment:"no data",
+    //         transactionID:0,
+    //         chequeNumber:0,
+    //         receiverAccount:0,
+    //         createdAt:"0",
+    //         updateAt:"0"
+    //     }],
+    //     duration:0,
+    //     totalPaid:0,
+    //     timeCovered:0,
+    //     agent:"",
+    //     hasSold:false
+    // });
     const [paymentStatus, setPaymentStatus] = useState<string>("emi");
     const [serialNo, setSerialNo] = useState<number|"">("");    
     const [clientName, setClientName] = useState<string|"">("");    
     const [clientCareTaker, setClientCareTaker] = useState<string|"">("");
     const navigate = useNavigate();
+
+
+    const aaa:AAA = {
+        a1:"a1",
+        b1:"b1",
+        c1:{
+            ca1:"ca1",
+            cb1:"cb1",
+            cc1:{
+                cca1:"cca1"
+            }
+        }
+    };
 
     const fetchClientPlot = async() => {
         try {
@@ -255,22 +285,47 @@ const ClientPlot = () => {
                 <section className="client_detailes_section">
                     <div className="delete_and_payemnt_client_btn">
                         {
-                            plotData?.client?._id ?
-                                (<>
-                                    <NavLink style={{textDecoration:"none"}} to={`/payment/${plotData?.client?._id}/${plotData?._id}`}>Do Payment</NavLink>
-                                    <RiCloseLine className="delete_client_plot" onClick={deleteClientPlot} />
-                                </>)
+                            plotData?.client ?
+
+                                plotData?.client?._id ?
+                                    (<>
+                                        <NavLink style={{textDecoration:"none"}} to={`/payment/${plotData?.client?._id}/${plotData?._id}`}>Do Payment</NavLink>
+                                        <RiCloseLine className="delete_client_plot" onClick={deleteClientPlot} />
+                                    </>)
+                                    :
+                                    (<Link style={{textDecoration:"none"}} to={`/sell/plot/${plotData?._id}`}><RiUserAddLine/> </Link>)
                                 :
-                                (<Link style={{textDecoration:"none"}} to={`/sell/plot/${plotData?._id}`}><RiUserAddLine/> </Link>)
+                                ""
                         }
                     </div>
+                        {/* <pre>{JSON.stringify(aaa, null, `\t`)}</pre>
+                        <pre>{JSON.stringify(aaa.c1, null, `\t`)}</pre>
+                        <pre>{JSON.stringify(aaa.c1?.cc1, null, `\t`)}</pre>
+                        <pre>{JSON.stringify(aaa.c1?.cc1?.cca1, null, `\t`)}</pre> */}
                     <div className="client_plot_cont">
-                        <span className="status_heading">Name  </span> <span className="status_result"> {plotData?.client?.name}</span>
-                        <span className="status_heading">S,W,D/O</span> <span className="status_result">  {plotData?.client?.careTaker}</span>
-                        <span className="status_heading">Plot No.     </span> <span className="status_result"> {plotData?.plot_no}</span>
-                        <span className="status_heading">Plot Size    </span> <span className="status_result"> {plotData?.size}</span>
-                        <span className="status_heading">Plot Rate    </span> <span className="status_result"> {plotData?.rate}</span>
-                        <span className="status_heading">Is Sold      </span> <span className="status_result" style={{fontWeight:"bold", color:plotData?.hasSold ? "#00dd00" : "red"}}>  {JSON.stringify(plotData?.hasSold)}</span>
+                        {
+                            plotData?.client ?
+                            <>
+                                <span className="status_heading">Name  </span> <span className="status_result"> {plotData?.client?.name}</span>
+                                <span className="status_heading">S,W,D/O</span> <span className="status_result">  {plotData?.client?.careTaker}</span>
+                                <span className="status_heading">Plot No.     </span> <span className="status_result"> {plotData?.plot_no}</span>
+                                <span className="status_heading">Plot Size    </span> <span className="status_result"> {plotData?.size}</span>
+                                <span className="status_heading">Plot Rate    </span> <span className="status_result"> {plotData?.rate}</span>
+                                <span className="status_heading">Is Sold      </span> <span className="status_result" style={{fontWeight:"bold", color:plotData?.hasSold ? "#00dd00" : "red"}}>  {JSON.stringify(plotData?.hasSold)}</span>
+                            </>
+                            :
+                            <>
+                                <span className="status_heading">Name  </span> <Skeleton height={13} width={90} />
+                                <span className="status_heading">S,W,D/O</span> <Skeleton height={13} width={90} />
+                                <span className="status_heading">Plot No.</span> <Skeleton height={13} width={90} />
+                                <span className="status_heading">Plot Size</span> <Skeleton height={13} width={90} />
+                                <span className="status_heading">Plot Rate</span> <Skeleton height={13} width={90} />
+                                <span className="status_heading">Is Sold</span> <Skeleton height={13} width={90} />
+                            </>
+                        }
+
+
+
 
 
 
@@ -297,21 +352,45 @@ const ClientPlot = () => {
                         <th>Payment Status</th>
                         <th><button onClick={() => navigate(`/statement`, {state:plotData})}>checkout</button></th>
                     </thead>
+
                     {
-                        plotData?.payments?.map((item, index) => (
-                            <tbody key={index} className="payment_cont" style={{background:item.paymentStatus !== "token" && item.paymentStatus !== "emi" ? "#ff9c9c" : "white"}}>
-                                <td>{item.createdAt}</td>
-                                <td>{item.slipNo}</td>
-                                <td>{item.modeOfPayment}</td>
-                                <td>{item.chequeNumber}</td>
-                                <td>{item.transactionID}</td>
-                                <td>{item.amount}</td>
-                                <td>{item.receiverAccount}</td>
-                                <td><select value={item.paymentStatus} onChange={(e:ChangeEvent<HTMLSelectElement>) => updatePaymentStatus(e.target.value, item._id)} ><option value="token">token</option><option value="emi">emi</option><option value="cancelled">cancelled</option><option value="bounced">bounced</option><option value="wasted">wasted</option></select></td>
-                                <td><button style={{background:"white", border:"none", cursor:"pointer"}} onClick={() => {removePayment(item._id)}}><RiDeleteBin2Line color="red" /></button></td>
+                        plotData?.payments ?
+                        <>
+                            {plotData?.payments?.map((item, index) => (
+                                <tbody key={index} className="payment_cont" style={{background:item.paymentStatus !== "token" && item.paymentStatus !== "emi" ? "#ff9c9c" : "white"}}>
+                                    <td>{item.createdAt}</td>
+                                    <td>{item.slipNo}</td>
+                                    <td>{item.modeOfPayment}</td>
+                                    <td>{item.chequeNumber}</td>
+                                    <td>{item.transactionID}</td>
+                                    <td>{item.amount}</td>
+                                    <td>{item.receiverAccount}</td>
+                                    <td><select value={item.paymentStatus} onChange={(e:ChangeEvent<HTMLSelectElement>) => updatePaymentStatus(e.target.value, item?._id!)} ><option value="token">token</option><option value="emi">emi</option><option value="cancelled">cancelled</option><option value="bounced">bounced</option><option value="wasted">wasted</option></select></td>
+                                    <td><button style={{background:"white", border:"none", cursor:"pointer"}} onClick={() => {removePayment(item?._id!)}}><RiDeleteBin2Line color="red" /></button></td>
+                                </tbody>
+                            ))}
+                        </>
+                        :
+                        <>
+                            <tbody className="payment_cont" style={{background:"white"}}>
+                                <td><MiniLoader width={20} borderWidth={2} /></td>
+                                <td><MiniLoader width={20} borderWidth={2} /></td>
+                                <td><MiniLoader width={20} borderWidth={2} /></td>
+                                <td><MiniLoader width={20} borderWidth={2} /></td>
+                                <td><MiniLoader width={20} borderWidth={2} /></td>
+                                <td><MiniLoader width={20} borderWidth={2} /></td>
+                                <td><MiniLoader width={20} borderWidth={2} /></td>
+                                <td><MiniLoader width={20} borderWidth={2} /></td>
+                                <td><MiniLoader width={20} borderWidth={2} /></td>
                             </tbody>
-                        ))
+                        </>
                     }
+
+
+
+
+
+                    
                 </table>
             </div>
         </ClientPlotBackground>
@@ -383,7 +462,7 @@ padding:4px;
             }
             .client_page_main .client_plot_cont .status_result{
                 font-size:16px;
-                ttext-align:center;
+                text-align:center;
             }
             
 

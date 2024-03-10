@@ -5,7 +5,7 @@ const Skeleton = ({height, width, padding, animation}:{height:number, width:numb
 
     return(
         <SkeletonBackground style={{padding:`${padding}px`}}>
-            <div className="line" style={{height:`${height}px`, width:`${width}%`, animation:animation}}></div>
+            <div className="line" style={{height:`${height}px`, width:`${width}%`, animation:animation ? animation : "loading 1s infinite ease-in-out"}}></div>
         </SkeletonBackground>
     )
 };

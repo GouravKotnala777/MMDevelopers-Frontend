@@ -12,6 +12,7 @@ import { AllPlotsState } from "./types/types";
 import { useSelector } from "react-redux";
 import { userReducer } from "./redux/reducer/userReducer";
 import TopButtons from "./components/TopButtons";
+import Skeleton from "./components/Skeleton";
 
 const formFields = [
     {label:"site_name", type:"text"},
@@ -114,39 +115,50 @@ const Site = () => {
                 </div>
                 <div className="plots_cont">
                     {
-                        plots?.map((item, index) => 
-                            viewStyleGrid ?
-                                (
-                                    <div key={index} className="plot_cont_grid" style={{background:item.hasSold ? ((((item.size*item.rate)/item.duration)*item.timeCovered)-(item.totalPaid) <= 0 ? "#00ffaa" : "#ff9090") : "white"}}>
-                                        {/* <NavLink to={`/site_name/${item.site_name}/plot/${item.plot_no}`}>Admin</NavLink> */}
-                                        <NavLink to={`/site_name/${item.site_name}/plot/${item.plot_no}/dashboard`} className="plot_cont_nav_grid">
-                                            {/* <IoIosBookmark className="book_mark" style={{color:item.hasSold ? "#dd0000" : "#00bb00"}} /> */}
-                                            <h3>{item.plot_no}</h3>
-                                            <p>{item.size}</p>
-                                            <img className="sold_out_img" src={item.hasSold ? soldOut : inStock} alt={item.hasSold ? soldOut : inStock} />
-                                            {/* <p style={{color:(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "#00bb00" : "#dd0000", fontWeight:"bold"}}>{(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "Advance : " : "Pending : "}{(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "+" : "-"}{Math.abs(((((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid))}</p> */}
-                                        </NavLink>
-                                        {/* <button onClick={() => {removePlot(item._id!)}}>Remove</button> */}
+                        !plots ?
+                            <>
+                                <div className="plot_cont_list">
+                                    <div className="plot_cont_nav_list" style={{padding:"6px 10px"}}>
+                                        <h3><Skeleton height={19} width={100} /></h3>
+                                        <p><Skeleton height={19} width={100} /></p>
+                                        <p><Skeleton height={19} width={100} /></p>
                                     </div>
-                                )
+                                </div>
+                            </>
                             :
-                                (
-                                    <div key={index} className="plot_cont_list">
-                                        {
-                                            user && user.role === "admin" ?
-                                                <NavLink to={`/site_name/${item.site_name}/plot/${item.plot_no}`}>Admin</NavLink>
-                                                :
-                                                ""
-                                        }
-                                        <NavLink to={`/site_name/${item.site_name}/plot/${item.plot_no}/dashboard`} className="plot_cont_nav_list">
-                                            <IoIosBookmark className="book_mark" style={{color:item.hasSold ? "#dd0000" : "#00bb00"}} />
-                                            <h3>{item.plot_no}</h3>
-                                            <p>{item.size}</p>
-                                            <p style={{color:(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "#00bb00" : "#dd0000", fontWeight:"bold"}}>{(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "Advance : " : "Pending : "}{(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "+" : "-"}{Math.abs(((((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid))}</p>
-                                        </NavLink>
-                                    </div>
-                                )
-                        )
+                            plots?.map((item, index) => 
+                                viewStyleGrid ?
+                                    (
+                                        <div key={index} className="plot_cont_grid" style={{background:item.hasSold ? ((((item.size*item.rate)/item.duration)*item.timeCovered)-(item.totalPaid) <= 0 ? "#00ffaa" : "#ff9090") : "white"}}>
+                                            {/* <NavLink to={`/site_name/${item.site_name}/plot/${item.plot_no}`}>Admin</NavLink> */}
+                                            <NavLink to={`/site_name/${item.site_name}/plot/${item.plot_no}/dashboard`} className="plot_cont_nav_grid">
+                                                {/* <IoIosBookmark className="book_mark" style={{color:item.hasSold ? "#dd0000" : "#00bb00"}} /> */}
+                                                <h3>{item.plot_no}</h3>
+                                                <p>{item.size}</p>
+                                                <img className="sold_out_img" src={item.hasSold ? soldOut : inStock} alt={item.hasSold ? soldOut : inStock} />
+                                                {/* <p style={{color:(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "#00bb00" : "#dd0000", fontWeight:"bold"}}>{(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "Advance : " : "Pending : "}{(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "+" : "-"}{Math.abs(((((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid))}</p> */}
+                                            </NavLink>
+                                            {/* <button onClick={() => {removePlot(item._id!)}}>Remove</button> */}
+                                        </div>
+                                    )
+                                :
+                                    (
+                                        <div key={index} className="plot_cont_list">
+                                            {
+                                                user && user.role === "admin" ?
+                                                    <NavLink to={`/site_name/${item.site_name}/plot/${item.plot_no}`}>Admin</NavLink>
+                                                    :
+                                                    ""
+                                            }
+                                            <NavLink to={`/site_name/${item.site_name}/plot/${item.plot_no}/dashboard`} className="plot_cont_nav_list">
+                                                <IoIosBookmark className="book_mark" style={{color:item.hasSold ? "#dd0000" : "#00bb00"}} />
+                                                <h3>{item.plot_no}</h3>
+                                                <p>{item.size}</p>
+                                                <p style={{color:(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "#00bb00" : "#dd0000", fontWeight:"bold"}}>{(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "Advance : " : "Pending : "}{(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "+" : "-"}{Math.abs(((((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid))}</p>
+                                            </NavLink>
+                                        </div>
+                                    )
+                            )
                     }
                 </div>
                 
@@ -158,14 +170,15 @@ const Site = () => {
 export default Site;
 
 const SiteBackground = styled.section`
-border:2px solid red;
+// border:2px solid red;
 box-sizing:border-box;
 // display:grid;
 // grid-template-columns:20% 80%;
 height:100vh;
+background:#f4f4f4;
 
     .site_page_main{
-        background:white;
+        // background:white;
     }
     .plot_view_layout_btns{
         // border:2px solid red;

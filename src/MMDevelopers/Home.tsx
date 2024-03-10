@@ -112,7 +112,7 @@ interface UserReducerInitialState {
 
 const Home = () => {
     const {user, loading} = useSelector((state:{userReducer:UserReducerInitialState}) => state[userReducer.name]);
-    const [allSites, setAllSites] = useState<AllSitesState[]>([]);
+    const [allSites, setAllSites] = useState<AllSitesState[]>();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     let c:TransformedDataType = {};
@@ -176,7 +176,7 @@ const Home = () => {
 
 
     const calcu = () => {
-        allSites.forEach((i, inde) => {
+        allSites?.forEach((i, inde) => {
             let obj:{[key2:string]:number;} = {}
             i.plots.forEach((j) => {
                 if (j.agent) {
@@ -199,7 +199,7 @@ const Home = () => {
 
 
     const calcuNew = () => {
-        allSites.forEach((site) => {
+        allSites?.forEach((site) => {
             transformedData[site.site_name] = {};
           
             site.plots.forEach((plot) => {                
@@ -263,47 +263,68 @@ const Home = () => {
 
             <main className="home_page_main">
                 <TopButtons otherBtns={[IoMdPeople]} otherBtnsOnClick={[() => navigate("/agent", {state:transformedData})]} lastBtn={user && user.role === "admin" ? BiAddToQueue : undefined} lastBtnOnClick={() => {navigate("/add_site/new")}} />
-                {/* <Skeleton height={20} width={100} animation="loading 1s infinite ease-in-out" /> */}
                 {/* <pre>{JSON.stringify(allSites, null, `\t`)}</pre> */}
                 <div className="sites_cont">
-                    {                         
-                         allSites.map((item, index) =>
-                            <div className="site_cont" key={index}>
-                                <NavLink className="site_cont_nav" to={`/site/${item.site_name}`}>
-                                    <span className="main_heading">{item.site_name}</span>
+                    {
+                        allSites ?
+                            allSites.map((item, index) =>
+                                <div className="site_cont" key={index}>
+                                    <NavLink className="site_cont_nav" to={`/site/${item.site_name}`}>
+                                        <span className="main_heading">{item.site_name}</span>
+                                        <div className="readings_cont">
+            
+                                            <span className="headings">Total Area</span><span className="values">{item.total_size} (yard)<sup>2</sup></span>
+                                            <span className="headings">Sold Area</span><span className="values">{c[item.site_name].totalSoldArea ? c[item.site_name].totalSoldArea : 0} (yard)<sup>2</sup></span>
+                                            <span className="headings">Total Balance</span><span className="values">{c[item.site_name].allPlotsBalance ? c[item.site_name].allPlotsBalance : 0} ₹</span>
+                                            <span className="headings">Total Pendings</span><span className="values">{c[item.site_name].allPlotsPendings ? c[item.site_name].allPlotsPendings : 0} ₹</span>
+                                            
+                                            <div className="agents_cont">
+                                                {/* <span className="checkout_agents"><BiEdit/></span> */}
+                                                {
+                                                    agentNameArrayUnique.map((agentName, iindex) => c[item.site_name][agentName]&&(
+                                                        <>
+                                                            <span className="headings">{agentName}</span><span className="values">{c[item.site_name][agentName]} (yard)<sup>2</sup></span>
+                                                        </>
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
+            
+                                    </NavLink>
+                                    <div className="remove_and_edit_btn">
+                                        {
+                                            user && user.role === "admin" ?
+                                            <>
+                                                <button onClick={() => deleteSite(item._id)}>Remove</button>
+                                                <NavLink to={`/add_site/${item._id}`} className="edit_nav"><BiEdit style={{color:"black"}}/></NavLink>
+                                            </>
+                                            :
+                                            ""
+                                        }
+                                    </div>
+                                </div>
+                            )
+                            :
+                            <div className="site_cont">
+                                <div className="site_cont_nav">
+                                    <span className="main_heading"><Skeleton height={19} width={100} /></span>
                                     <div className="readings_cont">
 
-                                        <span className="headings">Total Area</span><span className="values">{item.total_size} (yard)<sup>2</sup></span>
-                                        <span className="headings">Sold Area</span><span className="values">{c[item.site_name].totalSoldArea ? c[item.site_name].totalSoldArea : 0} (yard)<sup>2</sup></span>
-                                        <span className="headings">Total Balance</span><span className="values">{c[item.site_name].allPlotsBalance ? c[item.site_name].allPlotsBalance : 0} ₹</span>
-                                        <span className="headings">Total Pendings</span><span className="values">{c[item.site_name].allPlotsPendings ? c[item.site_name].allPlotsPendings : 0} ₹</span>
+                                        <span className="headings">Total Area</span><Skeleton height={15} width={100} />
+                                        <span className="headings">Sold Area</span><Skeleton height={15} width={100} />
+                                        <span className="headings">Total Balance</span><Skeleton height={15} width={100} />
+                                        <span className="headings">Total Pendings</span><Skeleton height={15} width={100} />
                                         
                                         <div className="agents_cont">
-                                            {/* <span className="checkout_agents"><BiEdit/></span> */}
-                                            {
-                                                agentNameArrayUnique.map((agentName, iindex) => c[item.site_name][agentName]&&(
-                                                    <>
-                                                        <span className="headings">{agentName}</span><span className="values">{c[item.site_name][agentName]} (yard)<sup>2</sup></span>
-                                                    </>
-                                                ))
-                                            }
+                                            <Skeleton height={15} width={100} />
+                                            <Skeleton height={15} width={100} />
                                         </div>
                                     </div>
-
-                                </NavLink>
+                                </div>
                                 <div className="remove_and_edit_btn">
-                                    {
-                                        user && user.role === "admin" ?
-                                        <>
-                                            <button onClick={() => deleteSite(item._id)}>Remove</button>
-                                            <NavLink to={`/add_site/${item._id}`} className="edit_nav"><BiEdit style={{color:"black"}}/></NavLink>
-                                        </>
-                                        :
-                                        ""
-                                    }
                                 </div>
                             </div>
-                        )
+
                     }
                 </div>
 
@@ -316,7 +337,7 @@ const Home = () => {
 export default Home;
 
 const HomeBackground = styled.section`
-border:2px solid red;
+// border:2px solid red;
 box-sizing:border-box;
 
     .home_page_main{
@@ -344,6 +365,7 @@ box-sizing:border-box;
                 .home_page_main .sites_cont .site_cont .site_cont_nav{
                     // border:2px solid red;
                     text-decoration:none;
+                    color:black;
                     background:white;
                     display:block;
                     border-radius:8px 8px 0 0;
