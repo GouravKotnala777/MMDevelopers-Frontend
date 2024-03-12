@@ -75,11 +75,12 @@ const AddPlot = () => {
 export default AddPlot;
 
 const AddPlotBackground = styled.section`
-border:2px solid red;
+// border:2px solid red;
 box-sizing:border-box;
 // display:grid;
 // grid-template-columns:20% 80%;
 height:100vh;
+
 
     .add_plot_page_main{
         background:#f4f4f4;

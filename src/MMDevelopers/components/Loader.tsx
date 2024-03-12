@@ -21,7 +21,7 @@ const Loader = ({width, color, borderWidth, hasHeading}:{width?:number; color?:s
 export default Loader;
 
 const LoaderBackground = styled.section`
-border:2px solid red;
+// border:2px solid red;
 
 
 .container {

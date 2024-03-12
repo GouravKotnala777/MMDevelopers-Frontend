@@ -1,6 +1,6 @@
 import { AiFillBoxPlot, AiOutlineBoxPlot, AiOutlineFunnelPlot, AiOutlineOrderedList, AiOutlineTransaction } from "react-icons/ai";
 import { BiHomeSmile, BiLogIn, BiLogOut } from "react-icons/bi";
-import { IoIosPeople } from "react-icons/io";
+import { IoIosPeople, IoMdSearch} from "react-icons/io";
 import { RiDashboardLine, RiSettings5Line, RiShoppingBagLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -54,6 +54,7 @@ const Header = ({user}:ProsType) => {
                 {
                     !user?._id && <Link to="/login" className="header_icons"><BiLogIn/></Link>
                 }
+                <Link to="/search/client" className="header_icons"><IoMdSearch/></Link>
                 <Link to="/setting" className="header_icons"><RiSettings5Line/></Link>
             </nav>
         </HeaderBackground>

@@ -55,7 +55,7 @@ const Logout = () => {
 export default Logout;
 
 const LogoutBackground = styled.section`
-border:2px solid red;
+// border:2px solid red;
 padding:10px;
 
     .logout_cont{

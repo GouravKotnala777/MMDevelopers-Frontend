@@ -154,7 +154,12 @@ const Site = () => {
                                                 <IoIosBookmark className="book_mark" style={{color:item.hasSold ? "#dd0000" : "#00bb00"}} />
                                                 <h3>{item.plot_no}</h3>
                                                 <p>{item.size}</p>
-                                                <p style={{color:(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "#00bb00" : "#dd0000", fontWeight:"bold"}}>{(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "Advance : " : "Pending : "}{(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "+" : "-"}{Math.abs(((((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid))}</p>
+                                                {
+                                                    item.client ?
+                                                        <p style={{color:(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "#00bb00" : "#dd0000", fontWeight:"bold"}}>{(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "Advance : " : "Pending : "}{(((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid < 0 ? "+" : "-"}{Math.abs(((((item.size * item.rate) / item?.duration) * item?.timeCovered) - item.totalPaid))}</p>
+                                                        :
+                                                        <p style={{fontWeight:"bold", color:"#00bb00"}}>Vacant</p>
+                                                }
                                             </NavLink>
                                         </div>
                                     )

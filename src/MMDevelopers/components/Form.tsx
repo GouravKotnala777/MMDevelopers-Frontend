@@ -97,7 +97,6 @@ const FormBackground = styled.section`
 // border:2px solid red;
 max-width:350px;
 margin:10px auto;
-// padding:10px;
 background:white;
 height:max-content;
 border-radius:8px;
@@ -107,6 +106,7 @@ box-shadow:0px 4px 16px rgba(0,0,0,0.1);
 
     .form_page_heading{
         text-align:center;
+        padding-top:5px;
     }
     .form_page_form{
         // border:2px solid green;
@@ -135,12 +135,13 @@ box-shadow:0px 4px 16px rgba(0,0,0,0.1);
             border-radius:5px;
         }
         .form_page_form .form_btn{
-            margin:10px 0px 10px 3px;
+            margin:10px 3px 10px 3px;
             padding:10px;
             border:none;
             background:#3182ce;
             color:white;
             border-radius:4px;
+            cursor:pointer;
         }
         .form_page_form .form_btn:focus{
             background:gainsboro;
@@ -149,6 +150,8 @@ box-shadow:0px 4px 16px rgba(0,0,0,0.1);
 
 
 @media screen and (width <= 300px){
+    margin:10px;
+    
     .form_page_form .form_inp{
         padding:8px;
         margin:8px 3px 3px 3px;

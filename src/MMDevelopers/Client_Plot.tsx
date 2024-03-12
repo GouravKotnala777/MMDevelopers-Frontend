@@ -13,6 +13,8 @@ import TopButtons from "./components/TopButtons";
 import Loader from "./components/Loader";
 import MiniLoader from "./components/MiniLoader";
 import Skeleton from "./components/Skeleton";
+import { UserReducerInitialState, userReducer } from "./redux/reducer/userReducer";
+import { useSelector } from "react-redux";
 
 interface AAA {
     a1?:string;
@@ -26,7 +28,8 @@ interface AAA {
     }
 };
 
-const ClientPlot = () => {    
+const ClientPlot = () => {
+    const {user, loading} = useSelector((state:{userReducer:UserReducerInitialState}) => state[userReducer.name]);
     const {name, plot_no} = useParams();
     const [plotData, setPlotData] = useState<PlotDashboard>();
     
@@ -285,8 +288,7 @@ const ClientPlot = () => {
                 <section className="client_detailes_section">
                     <div className="delete_and_payemnt_client_btn">
                         {
-                            plotData?.client ?
-
+                            user?.role === "admin" ?
                                 plotData?.client?._id ?
                                     (<>
                                         <NavLink style={{textDecoration:"none"}} to={`/payment/${plotData?.client?._id}/${plotData?._id}`}>Do Payment</NavLink>
@@ -298,16 +300,12 @@ const ClientPlot = () => {
                                 ""
                         }
                     </div>
-                        {/* <pre>{JSON.stringify(aaa, null, `\t`)}</pre>
-                        <pre>{JSON.stringify(aaa.c1, null, `\t`)}</pre>
-                        <pre>{JSON.stringify(aaa.c1?.cc1, null, `\t`)}</pre>
-                        <pre>{JSON.stringify(aaa.c1?.cc1?.cca1, null, `\t`)}</pre> */}
                     <div className="client_plot_cont">
                         {
-                            plotData?.client ?
+                            plotData ?
                             <>
-                                <span className="status_heading">Name  </span> <span className="status_result"> {plotData?.client?.name}</span>
-                                <span className="status_heading">S,W,D/O</span> <span className="status_result">  {plotData?.client?.careTaker}</span>
+                                <span className="status_heading" style={{color:plotData?.client ? "black" : "gainsboro"}}>Name</span><span className="status_result" style={{color:plotData?.client ? "black" : "gainsboro"}}>{plotData?.client?.name ? plotData?.client?.name : "--------"}</span>
+                                <span className="status_heading" style={{color:plotData?.client ? "black" : "gainsboro"}}>S,W,D/O</span><span className="status_result" style={{color:plotData?.client ? "black" : "gainsboro"}}>{plotData?.client?.careTaker ? plotData?.client?.careTaker : "--------"}</span>
                                 <span className="status_heading">Plot No.     </span> <span className="status_result"> {plotData?.plot_no}</span>
                                 <span className="status_heading">Plot Size    </span> <span className="status_result"> {plotData?.size}</span>
                                 <span className="status_heading">Plot Rate    </span> <span className="status_result"> {plotData?.rate}</span>
@@ -323,19 +321,10 @@ const ClientPlot = () => {
                                 <span className="status_heading">Is Sold</span> <Skeleton height={13} width={90} />
                             </>
                         }
-
-
-
-
-
-
-
-
                         <input value={serialNo === "" ? "" : Number(serialNo)||""} type="number" placeholder="Client Serial Number" onChange={(e) => setSerialNo(e.target.value === "" ? "" : parseFloat(e.target.value))} />
                         <input value={clientName} type="text" placeholder="Client Name" onChange={(e) => setClientName(e.target.value)} />
                         <input value={clientCareTaker} type="text" placeholder="Client Care Taker Name" onChange={(e) => setClientCareTaker(e.target.value)} />
                         <button type="submit" onClick={updateClientPlot}>Update</button>
-                        
                     </div>
                 </section>
             </main>
@@ -352,7 +341,6 @@ const ClientPlot = () => {
                         <th>Payment Status</th>
                         <th><button onClick={() => navigate(`/statement`, {state:plotData})}>checkout</button></th>
                     </thead>
-
                     {
                         plotData?.payments ?
                         <>
@@ -385,12 +373,6 @@ const ClientPlot = () => {
                             </tbody>
                         </>
                     }
-
-
-
-
-
-                    
                 </table>
             </div>
         </ClientPlotBackground>
@@ -400,7 +382,7 @@ const ClientPlot = () => {
 export default ClientPlot;
 
 const ClientPlotBackground = styled.section`
-border:2px solid red;
+// border:2px solid red;
 box-sizing:border-box;
 // display:grid;
 // grid-template-columns:20% 80%;

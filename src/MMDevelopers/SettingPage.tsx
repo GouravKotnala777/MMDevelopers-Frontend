@@ -48,7 +48,7 @@ const SettingPage = ({user}:ProsType) => {
 export default SettingPage;
 
 const SettingPageBackground = styled.section`
-border:2px solid red;
+// border:2px solid red;
    
     .settings_cont{
         // border:2px solid blue;
@@ -60,5 +60,6 @@ border:2px solid red;
             margin:10px;
             text-align:center;
             text-decoration:none;
+            color:black;
         }
 `;

@@ -24,6 +24,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import styled from "styled-components";
 import Skeleton from "./components/Skeleton";
 import Loader from "./components/Loader";
+import SearchClient from "./SearchClient";
 
 const dummyUser = {
     name:"Gourav",
@@ -99,6 +100,13 @@ const App:FC = () => {
                     <Loader />
                     :
                     <Routes>
+                        {/* (node:5716) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE]
+                                    DeprecationWarning: 'onAfterSetupMiddleware' option
+                                    is deprecated. Please use the 'setupMiddlewares' option.
+                        (Use `node --trace-deprecation ...` to show where the warning was created)
+                        (node:5716) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE]
+                                    DeprecationWarning: 'onBeforeSetupMiddleware' option
+                                    is deprecated. Please use the 'setupMiddlewares' option. */}
                             <Route path="/" element={<Home />} />
                             <Route path="/login" element={<ProtectedRoute isAuthenticated={user ? false : true}><Login /></ProtectedRoute>} />
                             <Route path="/site/:name" element={<Site />} />
@@ -115,6 +123,7 @@ const App:FC = () => {
                             <Route path="/setting" element={<SettingPage user={user} />} />
                             <Route path="/logout" element={<ProtectedRoute isAuthenticated={user ? true : false}><Logout /></ProtectedRoute>} />
                             <Route path="/loading" element={<Loader />} />
+                            <Route path="/search/client" element={<SearchClient />} />
                     </Routes>
                 
             }

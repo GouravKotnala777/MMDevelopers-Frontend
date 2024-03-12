@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { PlotDashboard } from "./types/types";
 import TopButtons from "./components/TopButtons";
 import Skeleton from "./components/Skeleton";
+import { IoDocumentTextOutline } from "react-icons/io5";
+import { PiClockClockwiseFill } from "react-icons/pi";
 
 
 const ClientDashboard = () => {
@@ -108,7 +110,8 @@ const ClientDashboard = () => {
 
     return(
         <ClientDashboardBackground>
-            <TopButtons firstBtn={BiLeftArrowAlt} firstBtnOnClick={() => navigate(-1)} lastBtn={IoIosDocument} lastBtnOnClick={() => navigate("/statement", {state:plotData})} />
+            <TopButtons firstBtn={BiLeftArrowAlt} firstBtnOnClick={() => navigate(-1)} lastBtn={IoDocumentTextOutline} lastBtnOnClick={() => navigate("/statement", {state:plotData})} />
+            {/* <TopButtons firstBtn={BiLeftArrowAlt} firstBtnOnClick={() => navigate(-1)} lastBtn={IoIosDocument} lastBtnOnClick={() => navigate("/statement", {state:plotData})} /> */}
             
             {/* <pre>{JSON.stringify(plotData, null, `\t`)}</pre> */}
             {
@@ -157,7 +160,7 @@ const ClientDashboard = () => {
             {
                 plot_no && size && rate && size!*rate! ?
                     <>
-                        <DashboardWidget headings={["Plot No.", "Plot Size", "Plot Rate", "Total Price", emi === 0 ? "Monthly EMI" : ""]} values={[plot_no, size, rate, size!*rate!, emi]} />
+                        <DashboardWidget headings={["Plot No.", "Plot Size", "Plot Rate", "Total Price", emi === 0 || emi === undefined ? "" : "Monthly EMI"]} values={[plot_no, size, rate, size!*rate!, emi]} />
                         {
                             plotData?.client &&
                                 <DashboardWidget headings={["Name", "W,S,D/O", "Mobile"]} values={[plotData.client.name, plotData?.client?.careTaker, plotData.client?.mobile]} />
@@ -167,30 +170,10 @@ const ClientDashboard = () => {
                             plotData?.client &&
                                 <DashboardWidget headings={["Address"]} values={[plotData.client?.address]} />
                         }
-            
-                        {
-                            plotData.client &&
-                                <section className="time_meter_section">
-                                    <p>Time</p>
-                                    <div className="time_meter_cont">
-                                        <div className="time_meter_circle1" style={{background: timeCovered! <= duration! ? `conic-gradient(#00dd00 ${(360/duration!) * timeCovered!}deg, #f0f0f0 0)` : `conic-gradient(#ff0000 ${((360/duration!) * timeCovered!) - 360}deg, #99dd99 0)`}}>
-                                            <div className="time_meter_circle2">
-                                                <h3>{timeCovered}/{duration}</h3>
-                                                {
-                                                    (duration! - timeCovered!) < 0 ?
-                                                        <p style={{color: (duration! - timeCovered!) < 0 ? "#ee0000" : "#00aa00" }}>{(duration! - timeCovered!)} months over</p>
-                                                        :
-                                                        <p style={{color: (duration! - timeCovered!) < 0 ? "#ee0000" : "#00aa00" }}>{(duration! - timeCovered!)} months remaining</p>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                        }
                         {
                             plotData?.payments?.length !== 0 &&
                                 <section className="time_meter_section">
-                                    <p>Time</p>
+                                    <p><span>Time</span><PiClockClockwiseFill style={{width:"20px", height:"20px"}} /></p>
                                     <div className="time_meter_cont">
                                         <div className="time_meter_circle1" style={{background: timeCovered! <= duration! ? `conic-gradient(#00dd00 ${(360/duration!) * timeCovered!}deg, #f0f0f0 0)` : `conic-gradient(#ff0000 ${((360/duration!) * timeCovered!) - 360}deg, #99dd99 0)`}}>
                                             <div className="time_meter_circle2">
@@ -206,8 +189,6 @@ const ClientDashboard = () => {
                                     </div>
                                 </section>
                         }
-            
-            
                         {
                             plotData?.payments?.length !== 0 &&
                                 <DashboardWidget headings={["Should Pay", "Paid", "Total Balance"]} values={[isNaN((emi!) * (timeCovered!)) ? 0 : ((emi!) * (timeCovered!)), (totalPaid), (size!*rate!) - (totalPaid!)]} />
@@ -219,15 +200,15 @@ const ClientDashboard = () => {
                         }
                         {
                             plotData?.payments?.length !== 0 &&
-                                <section className="payment_detailes_section">
-                                    <div className="payment_detailes">
+                                <section className="agent_detailes_section">
+                                    <div className="agent_detailes">
                                         <p className="headings">T.L.</p><p className="values">{plotData.agent}</p>
                                     </div>
                                 </section>
                         }
                     </>
                     :
-                    <DashboardWidget headings={["Plot No.", "Plot Size", "Plot Rate", "Total Price", emi === 0 ? "Monthly EMI" : ""]} values={[<Skeleton height={16} width={90} />, <Skeleton height={16} width={90} />, <Skeleton height={16} width={90} />, <Skeleton height={16} width={90} />]} />
+                    <DashboardWidget headings={["Plot No.", "Plot Size", "Plot Rate", "Total Price", "Monthly EMI"]} values={[<Skeleton height={16} width={90} />, <Skeleton height={16} width={90} />, <Skeleton height={16} width={90} />, <Skeleton height={16} width={90} />, <Skeleton height={16} width={90} />]} />
             }
 
         </ClientDashboardBackground>
@@ -253,7 +234,7 @@ const DashboardWidget = ({headings, values}:{headings:string[]; values:(string|n
 export default ClientDashboard;
 
 const ClientDashboardBackground = styled.section`
-border:2px solid red;
+// border:2px solid red;
 display:flex;
 padding:10px 20px;
 justify-content:space-around;
@@ -394,6 +375,8 @@ background:#f4f4f4;
             text-align:center;
             background:white;
             font-weight:bold;
+            display:flex;
+            justify-content:center;
         }
         .time_meter_section .time_meter_cont{
             // border:2px solid blue;
@@ -429,7 +412,7 @@ background:#f4f4f4;
                     }
 
     
-    .payment_detailes_section{
+    .agent_detailes_section{
         // border:2px solid violet;
         width:300px;
         border-radius:8px;
@@ -437,17 +420,19 @@ background:#f4f4f4;
         margin-top:10px;
         min-width:230px;
     }
-        .payment_detailes_section .payment_detailes{
+        .agent_detailes_section .agent_detailes{
             // border:2px solid indigo;
             display:grid;
             grid-template-columns:40% 40%;
             justify-content:space-around;
         }
-            .payment_detailes_section .payment_detailes .headings{
+            .agent_detailes_section .agent_detailes .headings{
                 // border:2px solid blue;
                 font-weight:bold;
+                color:white;
             }
-            .payment_detailes_section .payment_detailes .values{
+            .agent_detailes_section .agent_detailes .values{
                 // border:2px solid green;
+                color:white;
             }
 `;

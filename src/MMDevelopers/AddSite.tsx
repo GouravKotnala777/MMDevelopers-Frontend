@@ -117,7 +117,7 @@ const AddSite = () => {
 export default AddSite;
 
 const AddSiteBackground = styled.section`
-border:2px solid red;
+// border:2px solid red;
 box-sizing:border-box;
 // display:grid;
 // grid-template-columns:20% 80%;
