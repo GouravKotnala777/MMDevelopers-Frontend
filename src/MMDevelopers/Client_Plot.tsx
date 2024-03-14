@@ -289,13 +289,16 @@ const ClientPlot = () => {
                     <div className="delete_and_payemnt_client_btn">
                         {
                             user?.role === "admin" ?
-                                plotData?.client?._id ?
-                                    (<>
-                                        <NavLink style={{textDecoration:"none"}} to={`/payment/${plotData?.client?._id}/${plotData?._id}`}>Do Payment</NavLink>
-                                        <RiCloseLine className="delete_client_plot" onClick={deleteClientPlot} />
-                                    </>)
+                                plotData ? 
+                                    plotData?.client?._id ?
+                                        (<>
+                                            <NavLink style={{textDecoration:"none"}} to={`/payment/${plotData?.client?._id}/${plotData?._id}`}>Do Payment</NavLink>
+                                            <RiCloseLine className="delete_client_plot" onClick={deleteClientPlot} />
+                                        </>)
+                                        :
+                                        (<Link style={{textDecoration:"none"}} to={`/sell/plot/${plotData?._id}`}><RiUserAddLine/> </Link>)
                                     :
-                                    (<Link style={{textDecoration:"none"}} to={`/sell/plot/${plotData?._id}`}><RiUserAddLine/> </Link>)
+                                    ""
                                 :
                                 ""
                         }

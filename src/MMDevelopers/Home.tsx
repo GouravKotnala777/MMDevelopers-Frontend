@@ -95,21 +95,6 @@ interface UserReducerInitialState {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const Home = () => {
     const {user, loading} = useSelector((state:{userReducer:UserReducerInitialState}) => state[userReducer.name]);
     const [allSites, setAllSites] = useState<AllSitesState[]>();
@@ -238,12 +223,6 @@ const Home = () => {
     }
 
 
-
-
-
-
-
-
     calcu();
     calcuNew();
 
@@ -251,12 +230,6 @@ const Home = () => {
         fetchAllSites();
     }, []);
 
-
-
-    
-
-    
-    
     return(
         <HomeBackground>
             <Toaster />
@@ -341,7 +314,10 @@ const HomeBackground = styled.section`
 box-sizing:border-box;
 
     .home_page_main{
-        background:#f4f4f4;
+        // background:#f4f4f4;
+        // background: #ffe6ee;
+        // background:linear-gradient(90deg, #ffe7dd, #ffe1e6);
+        background:linear-gradient(90deg, #ffe1e6, #ffffff);
     }
         .home_page_main .sites_cont{
             // border:2px solid blue;
@@ -360,7 +336,8 @@ box-sizing:border-box;
                 // text-decoration:none;
                 box-shadow:0 8px 16px rgba(0,0,0,0.1);
                 // box-shadow: inset 10px 10px 20px 5px rgba(0, 0, 0, 0.5);
-                background:#ff763b;
+                // background:#ff763b;
+                background:linear-gradient(90deg, rgb(255, 49, 83), rgb(255, 118, 59));
             }
                 .home_page_main .sites_cont .site_cont .site_cont_nav{
                     // border:2px solid red;

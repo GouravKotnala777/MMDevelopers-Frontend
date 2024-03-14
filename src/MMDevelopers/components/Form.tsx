@@ -1,5 +1,6 @@
 import {ChangeEvent, FC, MouseEvent, MouseEventHandler, useState} from "react";
 import styled from "styled-components";
+import MiniLoader from "./MiniLoader";
 
 
 interface SelectOptionsTypes {
@@ -21,6 +22,7 @@ interface FormProps {
     selectOptions?:SelectOptionsTypes[];
     onClickFunc?: (e:MouseEvent<HTMLButtonElement>) => Promise<void>|void;
     onChangeFunc?: (e:ChangeEvent<HTMLInputElement|HTMLSelectElement>) => void;
+    isLoading?:boolean;
 };
 
 interface NewPlotForm {
@@ -33,7 +35,7 @@ interface NewPlotForm {
 
 
 
-const Form:FC<FormProps> = ({formHeading, formFields, selectOptions, onClickFunc, onChangeFunc}) => {
+const Form:FC<FormProps> = ({formHeading, formFields, selectOptions, onClickFunc, onChangeFunc, isLoading}) => {
     // const [formData, setFormData] = useState<NewPlotForm>({
     //     site_name:"Sec-58",
     //     plot_no:25,
@@ -55,7 +57,14 @@ const Form:FC<FormProps> = ({formHeading, formFields, selectOptions, onClickFunc
                         <LabelInput key={index} label={item.label} type={item.type} name={item?.name} value={item.value} selectOptions={selectOptions} onChangeFunc={onChangeFunc}/>
                     ))
                 }
-                <button className="form_btn" onClick={handleSubmit}>Submit</button>
+                <button className="form_btn" onClick={handleSubmit}>
+                    {
+                        isLoading ?
+                            <MiniLoader width={20} borderWidth={3} color="#3182ce" />
+                            :
+                            "Submit"
+                    }
+                </button>
             </form>
         </FormBackground>
     )
@@ -159,7 +168,7 @@ box-shadow:0px 4px 16px rgba(0,0,0,0.1);
         font-size: 14px;
     }
     .form_page_form .form_btn{
-        margin:8px 0px 8px 3px;
+        margin:8px 3px 8px 3px;
         padding:8px;
         border-radius:4px;
     }

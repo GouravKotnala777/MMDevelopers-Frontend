@@ -14,7 +14,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background:#f4f4f4;
+  /* background:#f4f4f4; */
+  /* background: #ffe6ee; */
+  /* background: #ffc2d8; */
+  /* background: linear-gradient(90deg, #ffe7dd, #ffe1e6);; */
+  background: linear-gradient(90deg, #ffe1e6, #ffffff);;
 }
 body::-webkit-scrollbar{
   width:0.8rem;

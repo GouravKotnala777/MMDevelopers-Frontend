@@ -23,6 +23,7 @@ const PaymentStatement = () => {
     
     return(
         <PaymentStatementBackground>
+            {/* <pre>{JSON.stringify(location.state, null, `\t`)}</pre> */}
         <RiCloseLine className="cancel_table" onClick={() => navigate(-1)} />
         <div className="statement_table_cont">
             <table className="payments_cont">
@@ -37,7 +38,7 @@ const PaymentStatement = () => {
                 </thead>
                 {
                     location.state._id && location.state?.payments?.map((item, index) => (
-                        <tbody key={index} className="payment_cont">
+                        <tbody key={index} className="payment_cont" style={{color:item.paymentStatus === "emi" || item.paymentStatus === "token" ? "black" : "red", fontWeight:item.paymentStatus === "emi" || item.paymentStatus === "token" ? "400" : "bold", background:item.paymentStatus === "emi" || item.paymentStatus === "token" ? "transparent" : "#ffdddd"}}>
                             <td>{(item.createdAt.split("T")[0]).split("-").reverse().join("-")}</td>
                             <td>{item.slipNo}</td>
                             <td>{item.modeOfPayment}</td>

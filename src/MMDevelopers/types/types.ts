@@ -205,4 +205,5 @@ export interface PaymentBody {
     receiverAccount:number;
     date:string;
     createdAt:string;
+    paymentStatus:string;
 };

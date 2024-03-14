@@ -196,7 +196,7 @@ const ClientDashboard = () => {
             
                         {
                             plotData?.payments && plotData?.payments?.length !== 0 &&
-                            <DashboardWidget headings={["First Payment", "Date", "Amount", "Last Payment", "Date", "Amount"]} values={["", (plotData?.payments[0].createdAt)?.split("T")[0], plotData?.payments[0].amount, "", (plotData?.payments[plotData.payments?.length - 1].createdAt)?.split("T")[0], plotData?.payments[0].amount]} />
+                            <DashboardWidget headings={["First Payment", "Date", "Amount", "Last Payment", "Date", "Amount"]} values={["", (plotData?.payments[0].createdAt)?.split("T")[0], plotData?.payments[0].amount, "", (plotData?.payments[plotData.payments?.length - 1].createdAt)?.split("T")[0], plotData?.payments[plotData.payments?.length - 1].amount]} />
                         }
                         {
                             plotData?.payments?.length !== 0 &&
@@ -240,7 +240,8 @@ padding:10px 20px;
 justify-content:space-around;
 flex-wrap:wrap;
 font-size:14px;
-background:#f4f4f4;
+// background:#f4f4f4;
+background:linear-gradient(90deg, #ffe1e6, #ffe7dd);;
 
     .plot_meter_section{
         // border:2px solid blue;

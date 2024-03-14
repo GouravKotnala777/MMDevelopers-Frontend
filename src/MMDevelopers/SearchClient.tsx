@@ -5,6 +5,7 @@ import toast, {Toaster} from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import TopButtons from "./components/TopButtons";
 import { BiLeftArrowAlt } from "react-icons/bi";
+import MiniLoader from "./components/MiniLoader";
 
 interface SearchClientBodyType {
     name?:string;
@@ -31,6 +32,7 @@ interface SearchedClientType {
 
 const SearchClient = () => {
     let searchClientSTO:any;
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [searchQueries, setSearchQueries] = useState<SearchClientBodyType>();
     const [searchedClient, setSearchedClient] = useState<{success:boolean; message:SearchedClientType[]}>();
     const formFields = [
@@ -49,6 +51,7 @@ const SearchClient = () => {
     };
 
     const searchClientByQueries = () => {
+        setIsLoading(true);
         clearTimeout(searchClientSTO);        
         searchClientSTO = setTimeout(async() => {
             try {
@@ -67,10 +70,7 @@ const SearchClient = () => {
                 console.log("-------- searchClient");
                 
                 if (data.success) {
-                    toast.loading("Plot Found",{
-                        position:"bottom-center",
-                        duration:2000
-                    });
+                    setIsLoading(false);
                     setSearchedClient(data);
                 }
                 else{
@@ -78,6 +78,7 @@ const SearchClient = () => {
                         position:"bottom-center",
                         duration:2000
                     });
+                    setIsLoading(false);
                     setSearchedClient({success:false, message:[]});
                 }
                 
@@ -86,6 +87,7 @@ const SearchClient = () => {
                     position:"bottom-center",
                     duration:2000
                 });
+                setIsLoading(false);
                 setSearchedClient({success:false, message:[]});
             }
         }, 1000);
@@ -97,7 +99,7 @@ const SearchClient = () => {
             <Toaster />
             {/* <pre>{JSON.stringify(searchedClient, null, `\t`)}</pre> */}
             <TopButtons firstBtn={BiLeftArrowAlt} firstBtnOnClick={() => navigate(-1)} />
-            <Form formHeading="Search User By" formFields={formFields} onClickFunc={searchClientByQueries} onChangeFunc={searchInputChangeHandler} />
+            <Form formHeading="Search User By" formFields={formFields} onClickFunc={searchClientByQueries} onChangeFunc={searchInputChangeHandler} isLoading={isLoading}  />
 
             <div className="searched_client_table_cont">
                 <table className="searched_client_table">
@@ -114,20 +116,22 @@ const SearchClient = () => {
                         <th>Agent</th>
                     </thead>
                         {
-                            searchedClient && searchedClient?.message.map((plot) => (
-                                <tbody onClick={() => navigate(`/site_name/${plot.site_name}/plot/${plot.plot_no}/dashboard`)}>
-                                    <td>{plot?.client?.name}</td>
-                                    <td>{plot?.client?.careTaker}</td>
-                                    <td>{plot?.client?.mobile}</td>
-                                    <td>{plot.plot_no}</td>
-                                    <td>{plot.size}</td>
-                                    <td>{plot.site_name}</td>
-                                    <td>{plot.totalShouldPay}</td>
-                                    <td>{plot.totalPaid}</td>
-                                    <td>{plot.timeCovered} Months</td>
-                                    <td>{plot.agent}</td>
-                                </tbody>
-                            ))
+                            searchedClient &&
+                                    searchedClient?.message.map((plot) => (
+                                        <tbody onClick={() => navigate(`/site_name/${plot.site_name}/plot/${plot.plot_no}/dashboard`)}>
+                                            <td>{plot?.client?.name}</td>
+                                            <td>{plot?.client?.careTaker}</td>
+                                            <td>{plot?.client?.mobile}</td>
+                                            <td>{plot.plot_no}</td>
+                                            <td>{plot.size}</td>
+                                            <td>{plot.site_name}</td>
+                                            <td>{plot.totalShouldPay}</td>
+                                            <td>{plot.totalPaid}</td>
+                                            <td>{plot.timeCovered} Months</td>
+                                            <td>{plot.agent}</td>
+                                        </tbody>
+                                    ))
+                            
                         }
 
                 </table>
@@ -139,7 +143,7 @@ const SearchClient = () => {
 export default SearchClient;
 
 const SearchClientBackground = styled.section`
-border:2px solid red;
+// border:2px solid red;
 
     .searched_client_table_cont{
         // border:2px solid green;

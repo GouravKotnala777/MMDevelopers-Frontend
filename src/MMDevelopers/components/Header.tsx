@@ -99,12 +99,12 @@ padding:0 4px;
     }
     .header_access_bar{
         // border:2px solid red;
-        min-width:40%;
-        max-width:70%;
+        min-width:22%;
+        max-width:50%;
         display:flex;
-        justify-content:flex-end;
+        // justify-content:flex-end;
         // justify-content:space-around;
-        // align-items:center;
+        justify-content:space-between;
         color:white;
     }
 }

@@ -54,7 +54,6 @@ width:100%;
         .back_and_other_btns .first_btn{
             // border:2px solid blue;
             // padding:4px;
-            
         }
         .back_and_other_btns .other_btns{
             // border:2px solid violet;
@@ -65,9 +64,12 @@ width:100%;
             // border:2px solid green;
         }
         .back_and_other_btns .all_btns{
-            background:gainsboro;
+            // background:gainsboro;
+            color:#ff763b;
+            // background:white;
             cursor:pointer;
             margin:8px;
+            border:1px solid #ff763b;
         }
         .back_and_other_btns .all_btns:hover{
             background:#f4f4f4;

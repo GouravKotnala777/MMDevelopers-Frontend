@@ -180,7 +180,8 @@ box-sizing:border-box;
 // display:grid;
 // grid-template-columns:20% 80%;
 height:100vh;
-background:#f4f4f4;
+// background:#f4f4f4;
+background:linear-gradient(90deg, #ffe1e6, #ffffff);
 
     .site_page_main{
         // background:white;
