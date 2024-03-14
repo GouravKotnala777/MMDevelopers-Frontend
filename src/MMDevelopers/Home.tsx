@@ -98,14 +98,11 @@ interface UserReducerInitialState {
 const Home = () => {
     const {user, loading} = useSelector((state:{userReducer:UserReducerInitialState}) => state[userReducer.name]);
     const [allSites, setAllSites] = useState<AllSitesState[]>();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const navigate = useNavigate();
     let c:TransformedDataType = {};
-    let f:TransformedDataTypeF = {};
     let agentNameArrayUnique:string[] = [];
     let transformedData: TransformedDataTypeNew = {};
-    let totalA:number = 0;
-    let agentsUnique:string[] = [];
 
     const fetchAllSites = async() => {
         const res = await fetch(`${process.env.REACT_APP_SERVER}/api/v1/site/all`, {
@@ -122,8 +119,6 @@ const Home = () => {
         console.log(user);
         setAllSites(data.message);
         console.log("------- fetchAllSites Home.tsx");
-
-
     };
     const deleteSite = async(siteID:string) => {
         console.log(siteID);
@@ -297,7 +292,6 @@ const Home = () => {
                                 <div className="remove_and_edit_btn">
                                 </div>
                             </div>
-
                     }
                 </div>
 
@@ -434,10 +428,12 @@ box-sizing:border-box;
         // border:2px solid blue;
         text-align:left;
         font-size:13px;
+        // color:gray;
     }
     .home_page_main .sites_cont .site_cont .site_cont_nav .readings_cont .values{
         // border:2px solid blue;
         font-size:11px;
+        color:gray;
     }
     .home_page_main .sites_cont .site_cont .site_cont_nav .main_heading{
         border:1px solid orange;
